@@ -11,7 +11,7 @@
     {% annotate_form_field field %}
 
     {% block control_group %}
-        <div class="form-group {% if field.errors %}has-error{% endif %}">
+        <div class="form-group{% if style == "horizontal" %} row{% endif %}{% if field.errors %} has-error{% endif %}">
 
             {% block label %}
                 {% if not nolabel and field.widget_type != 'CheckboxInput' %}
@@ -36,7 +36,7 @@
 
                     {% block errors %}
                         {% for error in field.errors %}
-                            <span class="error-block"><i class="icon-exclamation-sign"></i> {{ error }}</span>
+                            <span class="error-block"><i class="fas fa-exclamation"></i> {{ error }}</span>
                         {% endfor %}
                     {% endblock %}
 

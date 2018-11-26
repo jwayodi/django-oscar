@@ -9,16 +9,16 @@ Forms should be marked-up as::
     <form method="post" class="form-horizontal">
         {% csrf_token %}
         {% include 'oscar/partials/form_fields.html' %}
-        <div class="form-group col-sm-offset-4 col-sm-8">
+        <div class="form-group offset-sm-4 col-sm-8">
             <button class="btn btn-lg btn-primary" type="submit" data-loading-text="{% trans 'Saving...' %}">Save</button>
             or <a href="{{ some_url }}">cancel</a>
         </div>
     </form>
 
-The ``.col-sm-offset-4`` class aligns the buttons with the fields.
+The ``.offset-sm-4`` class aligns the buttons with the fields.
 
 Alternatively, use::
-    
+
     <form method="post" class="form-horizontal">
         {% csrf_token %}
         {% include 'oscar/partials/form_fields.html' %}

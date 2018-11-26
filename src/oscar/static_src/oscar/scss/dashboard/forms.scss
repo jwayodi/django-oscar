@@ -1,0 +1,173 @@
+// FORM CHANGES
+// ------------
+
+.form-horizontal,
+.form-stacked {
+  .control-label {
+    text-align: left;
+  }
+
+  .control-group {
+    margin-bottom: $line-height-base / 2;
+  }
+
+  input[type=text],
+  input[type=number],
+  input[type=email],
+  input[type=url],
+  textarea,
+  select {
+    font-size: $body-font-size;
+  }
+
+  textarea {
+    max-height: 200px;
+  }
+}
+
+.form-inline {
+  select {
+    min-width: 200px;
+  }
+
+  .select2-container.form-control {
+    display: inline-block;
+  }
+
+  .form-group .form-inline {
+    display: inline-block;
+  }
+}
+
+.form-inline {
+  margin-bottom: 0;
+
+  .form-text:first-child, .error-block:first-child {
+    display: none;
+  }
+
+  label {
+    margin-right: 5px;
+  }
+
+  .control-group {
+    margin-right: 10px;
+  }
+
+  .product-select {
+    width: 270px;
+  }
+}
+
+.create-page {
+  .form-horizontal,
+  .form-stacked {
+    input[type=text],
+    input[type=number],
+    input[type=email],
+    input[type=url],
+    textarea {
+      width: 95%;
+    }
+  }
+
+  .form-stacked {
+    .form-inline {
+      input[type=text],
+      input[type=number],
+      input[type=email],
+      input[type=url],
+      textarea {
+        width: auto;
+      }
+    }
+  }
+
+  label {
+    font-weight: bold;
+  }
+}
+
+.form-stacked {
+  .error-block {
+    display: block;
+    color: $red;
+  }
+}
+
+form {
+  label {
+    margin-bottom: 0;
+  }
+
+  .form-control {
+    font-size: $body-font-size;
+  }
+
+  .form-group .form-inline {
+    .input-group.date input {
+      width: 100%;
+    }
+
+    @include media-breakpoint-up(md) {
+      .input-group.date input {
+        width: 145px;
+      }
+    }
+  }
+}
+
+.fields-full {
+  input[type=text],
+  textarea {
+    width: 100%;
+  }
+}
+
+textarea.plain {
+  font-family: monospace;
+}
+
+.wysihtml5-sandbox {
+  border: 1px solid $gray-400 !important;
+}
+
+.wysihtml5-toolbar {
+  @include clearfix();
+}
+
+textarea {
+  width: 500px;
+  height: 400px;
+}
+
+// ADDITIONAL ERRORS
+.errorlist {
+  margin: 0 0 0 20px;
+  padding: 0 0 10px 0;
+  color: $red;
+
+  li {
+    padding: 0 0 5px 0;
+    list-style: none;
+  }
+}
+
+.form-inline {
+  .form-text, .error-block {
+    display: inline-block;
+    margin: 0 20px 0 10px;
+
+    li {
+      list-style: none;
+      color: $red;
+    }
+  }
+
+  input[type=number],
+  input[type=email],
+  input[type=url],
+  input[type=text] {
+    width: 140px;
+  }
+}

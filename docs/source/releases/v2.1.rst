@@ -21,6 +21,11 @@ Compatibility
 What's new in Oscar 2.1?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+- Oscar has been updated to use Bootstrap version 4 for all its core templates and styles.
+  This is a major, backward-incompatible upgrade from Bootstrap 3 that impacts almost all
+  of Oscar's templates and styles. Oscar now uses the Font Awesome icon font library
+  in place of Bootstrap 3's glyphicons.
+
 - The database performance of ``offer.Range.all_products()`` was substantially
   improved. The internals of that method have changed and specifically
   ``Range.invalidate_cached_ids()`` has been removed and replaced with
@@ -94,6 +99,8 @@ as follows:
 Backwards incompatible changes in Oscar 2.1
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+- Oscar has been updated to use Bootstrap version 4 for all its core templates and styles.
+
 - The ``category`` field has been removed from the
   ``communication.Notification`` model. This change requires database migration.
 
@@ -141,6 +148,9 @@ Minor changes
 Dependency changes
 ~~~~~~~~~~~~~~~~~~
 
+- Upgraded ``bootstrap`` to version 4.4.1.
+- Added ``font-awesome`` version 5.12 to replace Bootstrap 3's glyphicons.
+- Added ``tempusdominus-bootstrap-4`` to replace ``bootstrap-datetimepicker``.
 - Upgraded ``django-phonenumber-field`` to use the latest in the 3.x series.
 - Upgraded ``select2`` to version 4.0.10.
 - Upgraded ``inputmask`` to version 4.0.8.

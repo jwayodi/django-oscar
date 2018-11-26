@@ -3,11 +3,7 @@
 {% load static %}
 {% load widget_tweaks %}
 {% block styles %}
-    {% if use_less %}
-        <link rel="stylesheet/less" type="text/css" href="{% static "oscar/less/dashboard.less" %}" />
-    {% else %}
-        <link rel="stylesheet" type="text/css" href="{% static "oscar/css/dashboard.css" %}" />
-    {% endif %}
+    <link rel="stylesheet" type="text/css" href="{% static "oscar/css/dashboard.css" %}" />
 {% endblock %}
 
 {% block extrastyles %}
@@ -17,8 +13,8 @@
 {% block body_class %}dashboard-login{% endblock %}
 
 {% block layout %}
-    <div class="panel col-sm-offset-4 col-sm-4">
-        <div class="panel-body">
+    <div class="card col-sm-4 mx-auto mt-5">
+        <div class="card-body">
         <form method="post" novalidate>
             <h1>{{ shop_name }}</h1>
             <hr>
@@ -38,11 +34,11 @@
                 {% render_field form.password class="form-control" %}
             </div>
 
-            <input type="submit" class="btn btn-primary col-sm-4 col-sm-offset-4" value="{% trans "Login" %}">
+            <input type="submit" class="btn btn-primary btn-lg" value="{% trans "Login" %}">
             <input type="hidden" name="next" value="{{ next }}">
             {% csrf_token %}
         </form>
-    </div>
+        </div>
     </div>
 {% endblock %}
 {% block onbodyload %}{% endblock %}

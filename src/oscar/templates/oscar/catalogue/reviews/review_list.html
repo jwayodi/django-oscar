@@ -9,20 +9,20 @@
 
 {% block breadcrumbs %}
     <ul class="breadcrumb">
-        <li>
+        <li class="breadcrumb-item">
             <a href="{{ homepage_url }}">{% trans "Home" %}</a>
         </li>
         {% with category=product.categories.all.0 %}
             {% for c in category.get_ancestors_and_self %}
-                <li>
+                <li class="breadcrumb-item">
                     <a href="{{ c.get_absolute_url }}">{{ c.name }}</a>
                 </li>
             {% endfor %}
-            <li>
+            <li class="breadcrumb-item">
                 <a href="{{ product.get_absolute_url }}">{{ product.title }}</a>
             </li>
         {% endwith %}
-        <li class="active">{% trans "All reviews" %}</li>
+        <li class="breadcrumb-item active">{% trans "All reviews" %}</li>
     </ul>
 {% endblock %}
 
@@ -32,13 +32,13 @@
 
 {% block content %}
 
-    <section>        
+    <section>
         {% include 'oscar/catalogue/reviews/review_product.html' %}
 
         {% if reviews %}
             <form method="get" class="form-inline">
                 {% include "oscar/partials/form_fields_inline.html" with form=form %}
-                <input type="submit" class="btn btn-default" value="{% trans "Go" %}" />
+                <button type="submit" class="btn btn-secondary">{% trans "Go" %}</button>
             </form>
 
             {% for review in reviews %}
