@@ -18,9 +18,9 @@
             <li class="breadcrumb-item"><a href="{% url 'dashboard:shipping-method-list' %}">{% trans "Shipping methods" %}</a></li>
             {% if method %}
                 <li class="breadcrumb-item">{{ method.name }}</li>
-                <li class="breadcrumb-item active">{% trans "Edit" %}</li>
+                <li class="breadcrumb-item active" aria-current="page">{% trans "Edit" %}</li>
             {% else %}
-                <li class="breadcrumb-item active">{% trans "Create a new shipping method" %}</li>
+                <li class="breadcrumb-item active" aria-current="page">{% trans "Create a new shipping method" %}</li>
             {%  endif %}
         </ol>
     </nav>

@@ -15,9 +15,9 @@
                 <a href="{% url 'dashboard:range-list' %}">{% trans "Ranges" %}</a>
             </li>
             {% if range %}
-                <li class="breadcrumb-item active">'{{ range.name }}'</li>
+                <li class="breadcrumb-item active" aria-current="page">'{{ range.name }}'</li>
             {% else %}
-                <li class="breadcrumb-item active">{{ title }}</li>
+                <li class="breadcrumb-item active" aria-current="page">{{ title }}</li>
             {% endif %}
         </ol>
     </nav>

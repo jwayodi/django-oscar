@@ -9,16 +9,18 @@
 {% block body_class %}account-profile{% endblock %}
 
 {% block breadcrumbs %}
-    <ul class="breadcrumb">
-        <li class="breadcrumb-item">
-            <a href="{{ homepage_url }}">{% trans 'Home' %}</a>
-        </li>
-        <li class="breadcrumb-item">
-            <a href="{% url 'customer:summary' %}">{% trans 'Account' %}</a>
-        </li>
-        {% block extra_breadcrumbs %}{% endblock %}
-        <li class="breadcrumb-item active">{{ page_title }}</li>
-    </ul>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="{{ homepage_url }}">{% trans 'Home' %}</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="{% url 'customer:summary' %}">{% trans 'Account' %}</a>
+            </li>
+            {% block extra_breadcrumbs %}{% endblock %}
+            <li class="breadcrumb-item active" aria-current="page">{{ page_title }}</li>
+        </ol>
+    </nav>
 {% endblock %}
 
 {% block headertext %}{{ page_title }}{% endblock %}

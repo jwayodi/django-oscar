@@ -15,7 +15,7 @@
             <li class="breadcrumb-item"><a href="{% url 'dashboard:order-detail' number=line.order.number %}">
                 #{{ line.order.number }}
             </a></li>
-            <li class="breadcrumb-item active">{% blocktrans with id=line.id %}Line #{{ id }}{% endblocktrans %}</li>
+            <li class="breadcrumb-item active" aria-current="page">{% blocktrans with id=line.id %}Line #{{ id }}{% endblocktrans %}</li>
         </ol>
     </nav>
 {% endblock %}

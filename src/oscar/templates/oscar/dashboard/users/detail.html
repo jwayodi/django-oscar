@@ -11,7 +11,7 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{% url 'dashboard:index' %}">{% trans "Dashboard" %}</a></li>
             <li class="breadcrumb-item"><a href="{% url 'dashboard:users-index' %}">{% trans "Customers" %}</a></li>
-            <li class="breadcrumb-item active">{{ customer.email }}</li>
+            <li class="breadcrumb-item active" aria-current="page">{{ customer.email }}</li>
         </ol>
     </nav>
 {% endblock %}
