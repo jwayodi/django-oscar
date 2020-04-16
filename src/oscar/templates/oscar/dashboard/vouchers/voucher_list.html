@@ -14,7 +14,7 @@
             {% if form.is_bound %}
                 <li class="breadcrumb-item"><a href="{% url 'dashboard:voucher-list' %}">{% trans "Vouchers" %}</a></li>
             {% endif %}
-            <li class="breadcrumb-item active">{{ description }}</li>
+            <li class="breadcrumb-item active" aria-current="page">{{ description }}</li>
         </ol>
     </nav>
 {% endblock %}

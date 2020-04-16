@@ -13,7 +13,7 @@
             <li class="breadcrumb-item">
                 <a href="{% url 'dashboard:order-detail' number=order.number %}">{{ order.number }}</a>
             </li>
-            <li class="breadcrumb-item active">{% trans "Edit shipping address" %}</li>
+            <li class="breadcrumb-item active" aria-current="page">{% trans "Edit shipping address" %}</li>
         </ol>
     </nav>
 {% endblock %}

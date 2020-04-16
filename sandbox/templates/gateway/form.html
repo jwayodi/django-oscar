@@ -6,13 +6,14 @@
 {% endblock %}
 
 {% block breadcrumbs %}
-    <ul class="breadcrumb">
-        <li>
-            <a href="{{ homepage_url }}">{% trans "Home" %}</a>
-            <span class="divider">/</span>
-        </li>
-        <li class="active">{% trans "Dashboard access" %}</li>
-    </ul>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="{{ homepage_url }}">{% trans "Home" %}</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">{% trans "Dashboard access" %}</li>
+        </ol>
+    </nav>
 {% endblock %}
 
 {% block content %}

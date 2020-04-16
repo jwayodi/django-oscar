@@ -15,12 +15,14 @@
 {% endblock %}
 
 {% block breadcrumbs %}
-    <ul class="breadcrumb">
-        <li class="breadcrumb-item">
-            <a href="{{ homepage_url }}">{% trans "Home" %}</a>
-        </li>
-        <li class="breadcrumb-item active">{{ flatpage.title }}</li>
-    </ul>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="{{ homepage_url }}">{% trans "Home" %}</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">{{ flatpage.title }}</li>
+        </ol>
+    </nav>
 {% endblock %}
 
 {% block content %}

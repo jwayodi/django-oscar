@@ -16,7 +16,7 @@
             {% if voucher %}
                 <li class="breadcrumb-item"><a href="{% url 'dashboard:voucher-stats' pk=voucher.id %}">{{ voucher }}</a></li>
             {% endif %}
-            <li class="breadcrumb-item active">{% trans "Edit" %}</li>
+            <li class="breadcrumb-item active" aria-current="page">{% trans "Edit" %}</li>
         </ol>
     </nav>
 {% endblock %}

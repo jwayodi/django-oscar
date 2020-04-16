@@ -13,7 +13,7 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{% url 'dashboard:index' %}">{% trans "Dashboard" %}</a></li>
             <li class="breadcrumb-item"><a href="{% url 'dashboard:reviews-list' %}">{% trans "Reviews" %}</a></li>
-            <li class="breadcrumb-item active">
+            <li class="breadcrumb-item active" aria-current="page">
                 {% blocktrans with title=review.title|truncatechars:30 %}Delete review "{{ title }}"?{% endblocktrans %}
             </li>
         </ol>

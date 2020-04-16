@@ -13,7 +13,7 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{% url 'dashboard:index' %}">{% trans "Dashboard" %}</a></li>
             <li class="breadcrumb-item"><a href="{% url 'dashboard:offer-list' %}">{% trans "Offers" %}</a></li>
-            <li class="breadcrumb-item active">{{ offer.name }}</li>
+            <li class="breadcrumb-item active" aria-current="page">{{ offer.name }}</li>
         </ol>
     </nav>
 {% endblock %}

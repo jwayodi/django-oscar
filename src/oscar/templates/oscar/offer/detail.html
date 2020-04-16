@@ -9,15 +9,17 @@
 {% endblock %}
 
 {% block breadcrumbs %}
-<ul class="breadcrumb">
-    <li class="breadcrumb-item">
-        <a href="{{ homepage_url }}">{% trans "Home" %}</a>
-    </li>
-    <li class="breadcrumb-item">
-        <a href="{% url 'offer:list' %}">{% trans "Offers" %}</a>
-    </li>
-    <li class="breadcrumb-item active">{{ offer.name }}</li>
-</ul>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="{{ homepage_url }}">{% trans "Home" %}</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="{% url 'offer:list' %}">{% trans "Offers" %}</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">{{ offer.name }}</li>
+        </ol>
+    </nav>
 {% endblock %}
 
 {% block headertext %}{{ offer.name }}{% endblock %}

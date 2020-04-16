@@ -18,7 +18,7 @@
                     <a href="{% url 'dashboard:partner-manage' pk=partner.id %}">{{ partner.name }}</a>
                 </li>
             {% endif %}
-            <li class="breadcrumb-item active">{{ title }}</li>
+            <li class="breadcrumb-item active" aria-current="page">{{ title }}</li>
         </ol>
     </nav>
 {% endblock %}
