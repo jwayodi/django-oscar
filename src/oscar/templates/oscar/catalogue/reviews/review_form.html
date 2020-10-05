@@ -11,7 +11,7 @@
                 {% include 'oscar/partials/form_field.html' with field=form.title %}
 
                 <div class="reviewrating form-group {% if form.score.errors %}error{% endif %}">
-                    <label for="{{ form.score.auto_id }}" class="control-label required">
+                    <label for="{{ form.score.auto_id }}" class="col-form-label required">
                         {{ form.score.label|safe }}
                     </label>
                     <div class="controls">

@@ -27,7 +27,7 @@ form {
   margin-top: 6px;
 }
 
-.control-label.required:after {
+.col-form-label.required:after {
   color: $red;
   content: "*";
   display: inline-block;
