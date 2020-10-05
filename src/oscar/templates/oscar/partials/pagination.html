@@ -12,11 +12,11 @@
                 </li>
             {% endif %}
             <li class="page-item disabled">
-                <a class="page-link" href="#">
+                <span class="page-link">
                     {% blocktrans with page_num=page_obj.number total_pages=paginator.num_pages %}
                         Page {{ page_num }} of {{ total_pages }}
                     {% endblocktrans %}
-                </a>
+                </span>
             </li>
             {% if page_obj.has_next %}
                 <li class="page-item">
