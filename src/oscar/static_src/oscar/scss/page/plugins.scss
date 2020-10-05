@@ -32,21 +32,21 @@
 }
 
 // Center the carousel image
-.carousel-inner > .item > img,
-.carousel-inner > .item > a > img {
+.carousel-inner > .carousel-item > img,
+.carousel-inner > .carousel-item > a > img {
   margin: 0 auto;
 }
 
 // Multiple image gallery carousel over-rides
 #product_gallery {
-  .carousel-inner > .item {
+  .carousel-inner > .carousel-item {
     height: 400px;
     line-height: 400px;
     vertical-align: middle;
     text-align: center;
   }
 
-  .carousel-inner > .item > img {
+  .carousel-inner > .carousel-item > img {
     display: inline-block;
     vertical-align: middle;
     max-height: 400px;

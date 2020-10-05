@@ -9,23 +9,21 @@
         <div id="product_gallery" class="carousel slide" data-ride="carousel">
 
             <div class="img-thumbnail mb-3">
-                <div class="carousel-inner" role="listbox">
+                <div class="carousel-inner">
                 {% for image in all_images %}
                     <div class="carousel-item {% if forloop.first %}active{% endif %}">
                         {% oscar_thumbnail image.original "440x400" upscale=False as thumb %}
-                        <img src="{{ thumb.url }}" alt="{{ product.get_title }}" class="mx-auto d-block mw-100" />
+                        <img src="{{ thumb.url }}" alt="{{ product.get_title }}" />
                     </div>
                 {% endfor %}
                 </div>
                 <a class="carousel-control-prev" href="#product_gallery" role="button" data-slide="prev">
-                    <span class="fa-stack fa-2x">
-                        <i class="fas fa-angle-left"></i>
-                    </span>
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">{% trans "Previous" %}</span>
                 </a>
                 <a class="carousel-control-next" href="#product_gallery" role="button" data-slide="next">
-                    <span class="fa-stack fa-2x">
-                        <i class="fas fa-angle-right"></i>
-                    </span>
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">{% trans "Next" %}</span>
                 </a>
             </div>
 
@@ -45,7 +43,7 @@
         <div id="product_gallery" class="carousel">
             <div class="img-thumbnail">
                 <div class="carousel-inner">
-                    <div class="item active">
+                    <div class="carousel-item active">
                     {% with image=product.primary_image %}
                         {% oscar_thumbnail image.original "440x400" upscale=False as thumb %}
                         <img src="{{ thumb.url }}" alt="{{ product.get_title }}" />
