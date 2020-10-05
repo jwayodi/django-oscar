@@ -32,7 +32,7 @@
 {% block headertext %}{{ title }}{% endblock %}
 
 {% block dashboard_content %}
-    <form action="{% if request.GET.urlencode %}?{{ request.GET.urlencode }}{% endif %}" method="post" class="form-stacked wysiwyg fixed-actions" enctype="multipart/form-data" data-behaviour="affix-nav-errors" autocomplete="off">
+    <form action="{% if request.GET.urlencode %}?{{ request.GET.urlencode }}{% endif %}" method="post" class="form-stacked wysiwyg fixed-actions" enctype="multipart/form-data" data-behaviour="tab-nav-errors" autocomplete="off">
         {% csrf_token %}
 
         {% if parent %}
@@ -53,7 +53,7 @@
 
             {% block tab_nav %}
                 <div class="col-md-3">
-                    <div data-spy="affix" class="affix-top" data-offset-top="200">
+                    <div class="tab-nav sticky-top">
                         <div class="table-header">
                             <h3>{% trans "Sections" %}</h3>
                         </div>

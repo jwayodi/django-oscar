@@ -122,9 +122,9 @@ var oscar = (function(o, $) {
             });
 
             // Adds error icon if there are errors in the product update form
-            $('[data-behaviour="affix-nav-errors"] .tab-pane').each(function(){
+            $('[data-behaviour="tab-nav-errors"] .tab-pane').each(function(){
                 var productErrorListener = $(this).find('[class*="error"]:not(:empty)').closest('.tab-pane').attr('id');
-                $('[data-spy="affix"] a[href="#' + productErrorListener + '"]').append('<i class="fas fa-info-circle float-right"></i>');
+                $('.tab-nav a[href="#' + productErrorListener + '"]').append('<i class="fas fa-info-circle float-right"></i>');
             });
 
             o.dashboard.filereader.init();

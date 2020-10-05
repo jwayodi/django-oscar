@@ -86,12 +86,8 @@ label, input, button, select, textarea {
 
 // SIDE NAV CREATE PAGES
 // ---------------------
-div[data-spy="affix"] {
+.tab-nav {
   width: 266px;
-}
-
-div[data-spy="affix"].affix {
-  top: $line-height-base;
 }
 
 .bs-docs-sidenav {
@@ -188,7 +184,7 @@ div[data-spy="affix"].affix {
 // RESPONSIVE
 // ----------
 @media (max-width: 1300px) {
-  div[data-spy="affix"] {
+  .tab-nav {
     width: 200px;
   }
   .navbar-primary .nav {
@@ -204,10 +200,7 @@ div[data-spy="affix"].affix {
 }
 
 @media (max-width: 979px) {
-  .affix {
-    position: static;
-  }
-  div[data-spy="affix"] {
+  .tab-nav {
     width: 100%;
     margin-bottom: $paragraph-margin-bottom;
   }

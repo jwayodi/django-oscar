@@ -20,14 +20,14 @@
 {% block headertext %}{{ title }}{% endblock %}
 
 {% block dashboard_content %}
-    <form class="form-stacked wysiwyg fixed-actions" method="post" data-behaviour="affix-nav-errors">
+    <form class="form-stacked wysiwyg fixed-actions" method="post" data-behaviour="tab-nav-errors">
         {% csrf_token %}
 
         <div class="row">
 
             {% block tab_nav %}
                 <div class="col-md-3">
-                    <div data-spy="affix" class="affix-top" data-offset-top="200">
+                    <div class="tab-nav sticky-top">
                         <div class="table-header">
                             <h3>{% trans "Sections" %}</h3>
                         </div>
