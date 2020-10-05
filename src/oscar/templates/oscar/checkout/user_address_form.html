@@ -21,7 +21,7 @@
         <form id="update_user_address" method="post" class="form form-horizontal">
             {% csrf_token %}
             {% include "oscar/partials/form_fields.html" with form=form style='horizontal' %}
-            <div class="form-group">
+            <div class="form-group row">
                 <div class="offset-sm-4 col-sm-8">
                     <button type="submit" class="btn btn-lg btn-primary" data-loading-text="{% trans 'Saving...' %}">{% trans "Save" %}</button>
                     {% trans "or" %} <a href="{% url 'checkout:shipping-address' %}">{% trans "cancel" %}</a>.
