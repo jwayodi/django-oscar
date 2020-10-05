@@ -183,7 +183,7 @@
                 <p class="col-sm-2 h4 text-center">{% trans "Price" %}</p>
                 <div class="col-sm-2">&nbsp;</div>
             </div>
-            <form action="{% url 'basket:saved' %}" method="post" class="form-stacked later_summary" id="saved_basket_formset">
+            <form action="{% url 'basket:saved' %}" method="post" id="saved_basket_formset">
                 {% csrf_token %}
                 {{ saved_formset.management_form }}
                 {% for form in saved_formset %}

@@ -1,6 +1,6 @@
 {% load i18n %}
 
-<form {% if form_id %}id="{{ form_id }}"{% endif %} class="form-{{ style|default:"stacked" }} {{ class }}" method="{{ method|default:"post" }}"
+<form {% if form_id %}id="{{ form_id }}"{% endif %} class="{{ class }}{% if style == 'horizontal' %} form-horizontal{% endif %}" method="{{ method|default:"post" }}"
     {% if action %}action="{{ action }}"{% endif %}
     {% if includes_files %}enctype="multipart/form-data"{% endif %}>
 
