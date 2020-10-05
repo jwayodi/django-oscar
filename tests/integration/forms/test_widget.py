@@ -40,7 +40,7 @@ class TimePickerInputTestCase(TestCase):
     def test_icon_classes_context(self):
         i = widgets.TimePickerInput(format='%H:%M')
         ctx = i.get_context('test_input', None, {})
-        self.assertEqual(ctx['icon_classes'], 'far fa-clock glyphicon-time')
+        self.assertEqual(ctx['icon_classes'], 'far fa-clock')
 
     def test_input_format_unicode(self):
         # Check that the widget can handle unicode formats
@@ -63,7 +63,7 @@ class DatePickerInputTestCase(TestCase):
     def test_icon_classes_context(self):
         i = widgets.DatePickerInput(format='%H:%M')
         ctx = i.get_context('test_input', None, {})
-        self.assertEqual(ctx['icon_classes'], 'far fa-calendar-alt glyphicon-calendar')
+        self.assertEqual(ctx['icon_classes'], 'far fa-calendar-alt')
 
     def test_datepickerinput_format_unicode(self):
         # Check that the widget can handle unicode formats
@@ -86,7 +86,7 @@ class DateTimePickerInputTestCase(TestCase):
     def test_icon_classes_context(self):
         i = widgets.DateTimePickerInput(format='%d/%m/%Y %H:%M')
         ctx = i.get_context('test_input', None, {})
-        self.assertEqual(ctx['icon_classes'], 'far fa-calendar-alt glyphicon-calendar')
+        self.assertEqual(ctx['icon_classes'], 'far fa-calendar-alt')
 
     def test_datetimepickerinput_format_unicode(self):
         # Check that the widget can handle unicode formats

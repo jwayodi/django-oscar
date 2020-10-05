@@ -147,7 +147,7 @@ class TimePickerInput(DateTimeWidgetMixin, forms.TimeInput):
             'data-oscarWidget': 'time',
             'data-timeFormat': datetime_format_to_js_time_format(self.get_format()),
         }
-        ctx['icon_classes'] = 'far fa-clock glyphicon-time'
+        ctx['icon_classes'] = 'far fa-clock'
         return ctx
 
 
@@ -164,7 +164,7 @@ class DatePickerInput(DateTimeWidgetMixin, forms.DateInput):
             'data-oscarWidget': 'date',
             'data-dateFormat': datetime_format_to_js_date_format(self.get_format()),
         }
-        ctx['icon_classes'] = 'far fa-calendar-alt glyphicon-calendar'
+        ctx['icon_classes'] = 'far fa-calendar-alt'
         return ctx
 
 
@@ -195,7 +195,7 @@ class DateTimePickerInput(DateTimeWidgetMixin, forms.DateTimeInput):
             'data-oscarWidget': 'datetime',
             'data-datetimeFormat': datetime_format_to_js_datetime_format(self.get_format()),
         }
-        ctx['icon_classes'] = 'far fa-calendar-alt glyphicon-calendar'
+        ctx['icon_classes'] = 'far fa-calendar-alt'
         return ctx
 
 
