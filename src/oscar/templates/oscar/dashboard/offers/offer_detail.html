@@ -59,11 +59,15 @@
             <tr>
                 <th>{% trans "Name" %}</th>
                 <td>{{ offer.name }}</td>
-                <td rowspan="2"><a id="edit_metadata" href="{% url 'dashboard:offer-metadata' pk=offer.pk %}" class="btn btn-secondary">{% trans "Edit" %}</a></td>
+                <td rowspan="3"><a id="edit_metadata" href="{% url 'dashboard:offer-metadata' pk=offer.pk %}" class="btn btn-secondary">{% trans "Edit" %}</a></td>
             </tr>
             <tr>
                 <th>{% trans "Description" %}</th>
                 <td>{{ offer.description|safe|default:"-" }}</td>
+            </tr>
+            <tr>
+                <th>{% trans "Type" %}</th>
+                <td>{{ offer.get_offer_type_display }}</td>
             </tr>
             <tr>
                 <th>{% trans "Incentive" %}</th>
@@ -90,6 +94,12 @@
                 </td>
                 <td><a href="{% url 'dashboard:offer-restrictions' pk=offer.pk %}" class="btn btn-secondary">{% trans "Edit" %}</a></td>
             </tr>
+            {% if offer.is_voucher_offer_type %}
+            <tr>
+                <th>{% trans "Num of vouchers" %}</th>
+                <td>{{ offer.vouchers.count }}</td>
+            </tr>
+            {% endif %}
         </tbody>
     </table>
 

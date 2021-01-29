@@ -111,7 +111,7 @@ class AbstractConditionalOffer(models.Model):
                     "a user for the duration of their session")),
     )
     offer_type = models.CharField(
-        _("Type"), choices=TYPE_CHOICES, default=SITE, max_length=128)
+        _("Type"), choices=TYPE_CHOICES, max_length=128)
 
     exclusive = models.BooleanField(
         _("Exclusive offer"),
@@ -247,6 +247,10 @@ class AbstractConditionalOffer(models.Model):
                 and self.start_datetime > self.end_datetime):
             raise exceptions.ValidationError(
                 _('End date should be later than start date'))
+
+    @property
+    def is_voucher_offer_type(self):
+        return self.offer_type == self.VOUCHER
 
     @property
     def is_open(self):

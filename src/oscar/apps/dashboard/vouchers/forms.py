@@ -1,13 +1,16 @@
 from django import forms
+from django.db import transaction
+from django.urls import reverse
+from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 
+from oscar.apps.voucher.utils import get_unused_code
 from oscar.core.loading import get_model
 from oscar.forms import widgets
 
 Voucher = get_model('voucher', 'Voucher')
 VoucherSet = get_model('voucher', 'VoucherSet')
-Benefit = get_model('offer', 'Benefit')
-Range = get_model('offer', 'Range')
+ConditionalOffer = get_model('offer', 'ConditionalOffer')
 
 
 class VoucherForm(forms.Form):
@@ -25,22 +28,12 @@ class VoucherForm(forms.Form):
         widget=widgets.DateTimePickerInput(),
         label=_("End datetime"))
 
-    usage = forms.ChoiceField(choices=Voucher.USAGE_CHOICES, label=_("Usage"))
+    usage = forms.ChoiceField(choices=(("", "---------"),) + Voucher.USAGE_CHOICES, label=_("Usage"))
 
-    benefit_range = forms.ModelChoiceField(
-        label=_('Which products get a discount?'),
-        queryset=Range.objects.all(),
+    offers = forms.ModelMultipleChoiceField(
+        label=_("Which offers apply for this voucher?"),
+        queryset=ConditionalOffer.objects.filter(offer_type=ConditionalOffer.VOUCHER),
     )
-    benefit_type = forms.ChoiceField(
-        choices=Benefit.TYPE_CHOICES,
-        label=_('Discount type'),
-    )
-    benefit_value = forms.DecimalField(
-        label=_('Discount value'))
-
-    exclusive = forms.BooleanField(
-        required=False,
-        label=_("Exclusive offers cannot be combined on the same items"))
 
     def __init__(self, voucher=None, *args, **kwargs):
         self.voucher = voucher
@@ -85,15 +78,23 @@ class VoucherForm(forms.Form):
 class VoucherSearchForm(forms.Form):
     name = forms.CharField(required=False, label=_("Name"))
     code = forms.CharField(required=False, label=_("Code"))
-    is_active = forms.BooleanField(required=False, label=_("Is Active?"))
-    in_set = forms.BooleanField(
-        required=False, label=_("In Voucherset?"))
+    is_active = forms.NullBooleanField(
+        required=False, label=_("Is Active?"), widget=forms.NullBooleanSelect(attrs={'class': 'no-widget-init'}))
+    in_set = forms.NullBooleanField(
+        required=False, label=_("In Voucher set?"), widget=forms.NullBooleanSelect(attrs={'class': 'no-widget-init'}))
 
     def clean_code(self):
         return self.cleaned_data['code'].upper()
 
 
 class VoucherSetForm(forms.ModelForm):
+    usage = forms.ChoiceField(choices=(("", "---------"),) + Voucher.USAGE_CHOICES, label=_("Usage"))
+
+    offers = forms.ModelMultipleChoiceField(
+        label=_("Which offers apply for this voucher set?"),
+        queryset=ConditionalOffer.objects.filter(offer_type=ConditionalOffer.VOUCHER),
+    )
+
     class Meta:
         model = VoucherSet
         fields = [
@@ -109,27 +110,48 @@ class VoucherSetForm(forms.ModelForm):
             'end_datetime': widgets.DateTimePickerInput(),
         }
 
-    benefit_range = forms.ModelChoiceField(
-        label=_('Which products get a discount?'),
-        queryset=Range.objects.all(),
-    )
-    benefit_type = forms.ChoiceField(
-        choices=Benefit.TYPE_CHOICES,
-        label=_('Discount type'),
-    )
-    benefit_value = forms.DecimalField(
-        label=_('Discount value'))
+    def clean_count(self):
+        data = self.cleaned_data['count']
+        if (self.instance.pk is not None) and (data < self.instance.count):
+            stats_url = reverse('dashboard:voucher-set-detail', kwargs={'pk': self.instance.pk})
+            raise forms.ValidationError(mark_safe(
+                _('This cannot be used to delete vouchers (currently %s) in this set. '
+                  'You can do that on the <a href="%s">detail</a> page.') % (self.instance.count, stats_url)))
+        return data
 
+    @transaction.atomic
     def save(self, commit=True):
         instance = super().save(commit)
         if commit:
-            instance.generate_vouchers()
+            Voucher = get_model('voucher', 'Voucher')
+            usage = self.cleaned_data['usage']
+            offers = self.cleaned_data['offers']
+            if instance is not None:
+                # Update vouchers in this set
+                instance.vouchers.update(name=instance.name,
+                                         usage=usage,
+                                         start_datetime=instance.start_datetime,
+                                         end_datetime=instance.end_datetime)
+                for voucher in instance.vouchers.all():
+                    voucher.offers.set(offers)
+            # Add vouchers to this set
+            vouchers_added = False
+            for i in range(instance.vouchers.count(), instance.count):
+                voucher = Voucher.objects.create(name=instance.name,
+                                                 code=get_unused_code(length=instance.code_length),
+                                                 voucher_set=instance,
+                                                 usage=usage,
+                                                 start_datetime=instance.start_datetime,
+                                                 end_datetime=instance.end_datetime)
+                voucher.offers.add(*offers)
+                vouchers_added = True
+            if vouchers_added:
+                instance.update_count()
         return instance
 
 
 class VoucherSetSearchForm(forms.Form):
     code = forms.CharField(required=False, label=_("Code"))
-    is_active = forms.BooleanField(required=False, label=_("Is Active?"))
 
     def clean_code(self):
         return self.cleaned_data['code'].upper()

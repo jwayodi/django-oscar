@@ -55,6 +55,33 @@ class IndexView(TemplateView):
         return ConditionalOffer.objects.filter(
             end_datetime__gt=now(), offer_type=ConditionalOffer.SITE)
 
+    def get_active_voucher_offers(self):
+        """
+        Return active conditional offers of type "voucher offer". The returned
+        ``Queryset`` of voucher offers is filtered by end date greater then
+        the current date.
+        """
+        return ConditionalOffer.objects.filter(
+            end_datetime__gt=now(), offer_type=ConditionalOffer.VOUCHER)
+
+    def get_active_user_offers(self):
+        """
+        Return active conditional offers of type "user offer". The returned
+        ``Queryset`` of user offers is filtered by end date greater then
+        the current date.
+        """
+        return ConditionalOffer.objects.filter(
+            end_datetime__gt=now(), offer_type=ConditionalOffer.USER)
+
+    def get_active_session_offers(self):
+        """
+        Return active conditional offers of type "session offer". The returned
+        ``Queryset`` of session offers is filtered by end date greater then
+        the current date.
+        """
+        return ConditionalOffer.objects.filter(
+            end_datetime__gt=now(), offer_type=ConditionalOffer.SESSION)
+
     def get_active_vouchers(self):
         """
         Get all active vouchers. The returned ``Queryset`` of vouchers
@@ -189,6 +216,9 @@ class IndexView(TemplateView):
         if user.is_staff:
             stats.update(
                 total_site_offers=self.get_active_site_offers().count(),
+                total_voucher_offers=self.get_active_voucher_offers().count(),
+                total_user_offers=self.get_active_user_offers().count(),
+                total_session_offers=self.get_active_session_offers().count(),
                 total_vouchers=self.get_active_vouchers().count(),
             )
         return stats

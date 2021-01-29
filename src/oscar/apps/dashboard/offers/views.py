@@ -36,11 +36,9 @@ class OfferListView(ListView):
     paginate_by = settings.OSCAR_DASHBOARD_ITEMS_PER_PAGE
 
     def get_queryset(self):
-        qs = self.model._default_manager.exclude(
-            offer_type=ConditionalOffer.VOUCHER)
-        qs = sort_queryset(qs, self.request,
-                           ['name', 'start_datetime', 'end_datetime',
-                            'num_applications', 'total_discount'])
+        qs = self.model._default_manager.all()
+        qs = sort_queryset(qs, self.request, ['name', 'offer_type', 'start_datetime', 'end_datetime',
+                                              'num_applications', 'total_discount'])
 
         self.description = _("All offers")
 
@@ -51,13 +49,27 @@ class OfferListView(ListView):
         if not self.form.is_valid():
             return qs
 
-        data = self.form.cleaned_data
+        name = self.form.cleaned_data['name']
+        offer_type = self.form.cleaned_data['offer_type']
+        is_active = self.form.cleaned_data['is_active']
 
-        if data['name']:
-            qs = qs.filter(name__icontains=data['name'])
-            self.description = _("Offers matching '%s'") % data['name']
+        if name:
+            qs = qs.filter(name__icontains=name)
+            self.description = _("Offers matching '%s'") % name
             self.is_filtered = True
-        if data['is_active']:
+        if offer_type:
+            try:
+                offer_type_label = dict(ConditionalOffer.TYPE_CHOICES)[offer_type]
+            except KeyError:
+                pass
+            else:
+                qs = qs.filter(offer_type=offer_type)
+                if name:
+                    self.description += _(" of type '%s'") % offer_type_label
+                else:
+                    self.description = _("Offers of type '%s'") % offer_type_label
+                self.is_filtered = True
+        if is_active:
             self.is_filtered = True
             today = timezone.now()
             qs = qs.filter(start_datetime__lte=today, end_datetime__gte=today)
@@ -279,7 +291,7 @@ class OfferMetaDataView(OfferWizardStepView):
         return self.offer
 
     def get_title(self):
-        return _("Name and description")
+        return _("Name, description and type")
 
 
 class OfferBenefitView(OfferWizardStepView):

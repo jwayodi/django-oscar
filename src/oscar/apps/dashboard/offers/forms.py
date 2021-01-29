@@ -14,7 +14,7 @@ Benefit = get_model('offer', 'Benefit')
 class MetaDataForm(forms.ModelForm):
     class Meta:
         model = ConditionalOffer
-        fields = ('name', 'description',)
+        fields = ('name', 'description', 'offer_type')
 
 
 class RestrictionsForm(forms.ModelForm):
@@ -189,3 +189,11 @@ class BenefitForm(forms.ModelForm):
 class OfferSearchForm(forms.Form):
     name = forms.CharField(required=False, label=_("Offer name"))
     is_active = forms.BooleanField(required=False, label=_("Is active?"))
+    offer_type = forms.ChoiceField(required=False, choices=(("", "---------"),) + ConditionalOffer.TYPE_CHOICES)
+
+    @property
+    def is_voucher_offer_type(self):
+        if self.is_bound and (self.cleaned_data['offer_type'] == ConditionalOffer.VOUCHER):
+            return True
+        else:
+            return False

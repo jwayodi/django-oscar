@@ -1,14 +1,12 @@
 from decimal import Decimal
 
 from django.core import exceptions
-from django.db import models, transaction
+from django.db import models
 from django.db.models import Sum
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
-from oscar.apps.voucher.utils import get_unused_code
 from oscar.core.compat import AUTH_USER_MODEL
-from oscar.core.loading import get_model
 
 
 class AbstractVoucherSet(models.Model):
@@ -37,11 +35,6 @@ class AbstractVoucherSet(models.Model):
     start_datetime = models.DateTimeField(_('Start datetime'))
     end_datetime = models.DateTimeField(_('End datetime'))
 
-    offer = models.OneToOneField(
-        'offer.ConditionalOffer', related_name='voucher_set',
-        verbose_name=_("Offer"), limit_choices_to={'offer_type': "Voucher"},
-        on_delete=models.CASCADE, null=True, blank=True)
-
     class Meta:
         abstract = True
         app_label = 'voucher'
@@ -53,43 +46,16 @@ class AbstractVoucherSet(models.Model):
     def __str__(self):
         return self.name
 
-    def generate_vouchers(self):
-        """Generate vouchers for this set"""
-        current_count = self.vouchers.count()
-        for i in range(current_count, self.count):
-            self.add_new()
-
-    def add_new(self):
-        """Add a new voucher to this set"""
-        Voucher = get_model('voucher', 'Voucher')
-        code = get_unused_code(length=self.code_length)
-        voucher = Voucher.objects.create(
-            name=self.name,
-            code=code,
-            voucher_set=self,
-            usage=Voucher.SINGLE_USE,
-            start_datetime=self.start_datetime,
-            end_datetime=self.end_datetime)
-
-        if self.offer:
-            voucher.offers.add(self.offer)
-
-        return voucher
+    def update_count(self):
+        vouchers_count = self.vouchers.count()
+        if self.count != vouchers_count:
+            self.count = vouchers_count
+            self.save()
 
     def is_active(self, test_datetime=None):
         """Test whether this voucher set is currently active. """
         test_datetime = test_datetime or timezone.now()
         return self.start_datetime <= test_datetime <= self.end_datetime
-
-    def save(self, *args, **kwargs):
-        self.count = max(self.count, self.vouchers.count())
-        with transaction.atomic():
-            super().save(*args, **kwargs)
-            self.generate_vouchers()
-            self.vouchers.update(
-                start_datetime=self.start_datetime,
-                end_datetime=self.end_datetime
-            )
 
     @property
     def num_basket_additions(self):
